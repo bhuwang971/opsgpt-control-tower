@@ -10,7 +10,9 @@ logs:
 	docker compose -f infra/docker-compose.yml --env-file .env logs -f --tail=200
 
 lint:
-	@echo "lint targets not wired yet"
+	cd backend && ruff check .
+	cd frontend && npm run lint
 
 test:
-	@echo "test targets not wired yet"
+	cd backend && pytest
+	cd frontend && npm run build
