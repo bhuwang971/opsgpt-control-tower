@@ -18,7 +18,7 @@ Local-first, $0-cost, production-grade portfolio project.
 - `make test`
 
 ## Architecture
-![Architecture diagram placeholder](docs/architecture-placeholder.png)
+Diagram placeholder: see `docs/architecture.md`.
 
 ## Roadmap (Week 0-10)
 - Week 0: foundations and production hygiene
