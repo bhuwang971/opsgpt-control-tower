@@ -7,6 +7,16 @@ Local-first, $0-cost, production-grade portfolio project.
 2. Run `make up`
 3. Open frontend at `http://localhost:5173`
 
+## Verify
+- API health: `http://localhost:8000/health`
+- API readiness: `http://localhost:8000/ready`
+- Grafana: `http://localhost:3000`
+- Prometheus: `http://localhost:9090`
+
+## Dev checks
+- `make lint`
+- `make test`
+
 ## Architecture
 ![Architecture diagram placeholder](docs/architecture-placeholder.png)
 
