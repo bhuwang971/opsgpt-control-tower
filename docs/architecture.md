@@ -13,5 +13,5 @@
 
 ## Notes
 
-- Week 0 focuses on local-first runnability and production hygiene.
+- Current scope focuses on local-first runnability and production hygiene.
 - Domain ingestion and ML layers begin in later increments.

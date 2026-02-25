@@ -2,7 +2,7 @@
 
 Local-first, $0-cost, production-grade portfolio project.
 
-## Run (Week 0)
+## Run
 1. Copy `.env.example` to `.env`
 2. Run `make up`
 3. Open frontend at `http://localhost:5173`
@@ -20,15 +20,15 @@ Local-first, $0-cost, production-grade portfolio project.
 ## Architecture
 Diagram placeholder: see `docs/architecture.md`.
 
-## Roadmap (Week 0-10)
-- Week 0: foundations and production hygiene
-- Week 1: ingest BTS + NOAA + Comtrade connectors
-- Week 2: DuckDB models + dbt scaffolding
-- Week 3: control tower KPI views + drilldowns
-- Week 4: delay classification/regression baselines
-- Week 5: time-series forecasting + backtesting
-- Week 6: RAG + citations + safe NL-to-SQL guardrails
-- Week 7: LangGraph agentic workflows + decision memos
-- Week 8: drift checks + performance monitoring
-- Week 9: experimentation module (A/B analysis)
-- Week 10: hardening, docs, and polish
+## Roadmap
+- Foundation: local-first setup, services, health, CI, pre-commit
+- Data ingestion: BTS + NOAA + Comtrade connectors and raw loading
+- Warehouse modeling: DuckDB analytics models and dbt structure
+- Control Tower UI: KPIs, trends, drilldowns, and alert views
+- ML baselines: delay classification and delay-minutes regression
+- Forecasting: time-series modeling and backtesting pipeline
+- RAG + SQL safety: retrieval with citations and guarded NL-to-SQL
+- Agent workflows: tool-using orchestration and decision memo outputs
+- Monitoring: drift checks, model/service metrics, observability dashboards
+- Experimentation: A/B analysis module and reporting templates
+- Hardening: performance tuning, docs expansion, and reliability polish
