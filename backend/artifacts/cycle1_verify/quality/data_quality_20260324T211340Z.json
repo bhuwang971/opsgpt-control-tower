@@ -1,0 +1,65 @@
+{
+  "generated_at": "20260324T211340Z",
+  "checks": [
+    {
+      "name": "bronze.bts_flights non_empty",
+      "status": "pass",
+      "detail": "row_count=3"
+    },
+    {
+      "name": "bronze.weather_observations non_empty",
+      "status": "pass",
+      "detail": "row_count=3"
+    },
+    {
+      "name": "bronze.comtrade_monthly non_empty",
+      "status": "pass",
+      "detail": "row_count=3"
+    },
+    {
+      "name": "bronze.bts_flights.origin null_ratio",
+      "status": "pass",
+      "detail": "null_ratio=0.000 threshold=0.000"
+    },
+    {
+      "name": "bronze.weather_observations.temperature_c null_ratio",
+      "status": "pass",
+      "detail": "null_ratio=0.000 threshold=0.000"
+    },
+    {
+      "name": "bronze.comtrade_monthly.trade_value_usd null_ratio",
+      "status": "pass",
+      "detail": "null_ratio=0.000 threshold=0.000"
+    },
+    {
+      "name": "bronze.bts_flights.arr_delay_minutes range",
+      "status": "pass",
+      "detail": "violations=0 expected_between=[-120, 1440]"
+    },
+    {
+      "name": "bronze.weather_observations.temperature_c range",
+      "status": "pass",
+      "detail": "violations=0 expected_between=[-80, 60]"
+    },
+    {
+      "name": "bronze.comtrade_monthly.trade_value_usd range",
+      "status": "pass",
+      "detail": "violations=0 expected_between=[0, 1000000000000]"
+    },
+    {
+      "name": "bronze.bts_flights.flight_id unique",
+      "status": "pass",
+      "detail": "duplicate_keys=0"
+    },
+    {
+      "name": "bronze.comtrade_monthly.trade_id unique",
+      "status": "pass",
+      "detail": "duplicate_keys=0"
+    },
+    {
+      "name": "raw.ingestion_runs.extracted_at freshness",
+      "status": "pass",
+      "detail": "age_days=0 threshold=30"
+    }
+  ]
+}

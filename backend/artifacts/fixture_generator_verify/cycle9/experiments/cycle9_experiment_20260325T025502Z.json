@@ -1,0 +1,273 @@
+{
+  "toggle_name": "adaptive_turnaround_buffers",
+  "title": "Adaptive Turnaround Buffers",
+  "description": "Local fixture-backed toggle that reduces effective arrival delay for the treated cohort to emulate an operational recovery policy.",
+  "design": {
+    "primary_metric": "on_time_rate",
+    "guardrail_metrics": [
+      "cancellation_rate",
+      "p90_arr_delay_minutes",
+      "severe_delay_rate"
+    ],
+    "alpha": 0.05,
+    "power_target": 0.8,
+    "estimated_mde": 0.15261633069227104
+  },
+  "sample_size": 125,
+  "window": {
+    "start_date": "2024-01-05",
+    "end_date": "2024-01-29"
+  },
+  "variant_counts": {
+    "control": 62,
+    "treatment": 63
+  },
+  "primary_metric_result": {
+    "metric": "on_time_rate",
+    "control_rate": 0.04838709677419355,
+    "treatment_rate": 0.15873015873015872,
+    "absolute_lift": 0.11034306195596517,
+    "relative_lift": 2.2804232804232805,
+    "z_score": 2.0206238263419505,
+    "p_value": 0.04331872056177244,
+    "ci_95": [
+      0.005482595278255828,
+      0.21520352863367453
+    ],
+    "significant": true
+  },
+  "guardrails": [
+    {
+      "metric": "cancellation_rate",
+      "control_value": 0.04838709677419355,
+      "treatment_value": 0.07936507936507936,
+      "difference": 0.030977982590885814,
+      "status": "watch"
+    },
+    {
+      "metric": "p90_arr_delay_minutes",
+      "control_value": 51.0,
+      "treatment_value": 47.0,
+      "difference": -4.0,
+      "status": "pass"
+    },
+    {
+      "metric": "severe_delay_rate",
+      "control_value": 0.03225806451612903,
+      "treatment_value": 0.0,
+      "difference": -0.03225806451612903,
+      "status": "pass"
+    }
+  ],
+  "sequential_checks": [
+    {
+      "checkpoint": "2024-01-05",
+      "sample_size": 5,
+      "absolute_lift": 0.3333333333333333,
+      "p_value": 0.361310428526179,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-06",
+      "sample_size": 10,
+      "absolute_lift": 0.0,
+      "p_value": 1.0,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-07",
+      "sample_size": 15,
+      "absolute_lift": 0.23214285714285715,
+      "p_value": 0.31043716792845233,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-08",
+      "sample_size": 20,
+      "absolute_lift": 0.19999999999999998,
+      "p_value": 0.26355247728297293,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-09",
+      "sample_size": 25,
+      "absolute_lift": 0.14743589743589747,
+      "p_value": 0.3150864615875628,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-10",
+      "sample_size": 30,
+      "absolute_lift": 0.06666666666666668,
+      "p_value": 0.624206114766406,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-11",
+      "sample_size": 35,
+      "absolute_lift": 0.1045751633986928,
+      "p_value": 0.41196334261889955,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-12",
+      "sample_size": 40,
+      "absolute_lift": 0.1,
+      "p_value": 0.37582508748869836,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-13",
+      "sample_size": 45,
+      "absolute_lift": 0.12648221343873517,
+      "p_value": 0.24190958665108342,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-14",
+      "sample_size": 50,
+      "absolute_lift": 0.12000000000000001,
+      "p_value": 0.22143973267201322,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-15",
+      "sample_size": 55,
+      "absolute_lift": 0.17592592592592593,
+      "p_value": 0.07788706738662654,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-16",
+      "sample_size": 60,
+      "absolute_lift": 0.16666666666666669,
+      "p_value": 0.07064482479256728,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-17",
+      "sample_size": 65,
+      "absolute_lift": 0.17992424242424243,
+      "p_value": 0.04443073918236351,
+      "decision": "promising"
+    },
+    {
+      "checkpoint": "2024-01-18",
+      "sample_size": 70,
+      "absolute_lift": 0.17142857142857143,
+      "p_value": 0.040423979336908555,
+      "decision": "promising"
+    },
+    {
+      "checkpoint": "2024-01-19",
+      "sample_size": 75,
+      "absolute_lift": 0.15647226173541962,
+      "p_value": 0.04626311786555393,
+      "decision": "promising"
+    },
+    {
+      "checkpoint": "2024-01-20",
+      "sample_size": 80,
+      "absolute_lift": 0.125,
+      "p_value": 0.1045290262269658,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-21",
+      "sample_size": 85,
+      "absolute_lift": 0.13787375415282394,
+      "p_value": 0.06797882708901737,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-22",
+      "sample_size": 90,
+      "absolute_lift": 0.13333333333333336,
+      "p_value": 0.06281184751609858,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-23",
+      "sample_size": 95,
+      "absolute_lift": 0.12367021276595745,
+      "p_value": 0.06965875300425917,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-24",
+      "sample_size": 100,
+      "absolute_lift": 0.12,
+      "p_value": 0.06483815699206641,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-25",
+      "sample_size": 105,
+      "absolute_lift": 0.13098693759071117,
+      "p_value": 0.04160041395546221,
+      "decision": "promising"
+    },
+    {
+      "checkpoint": "2024-01-26",
+      "sample_size": 110,
+      "absolute_lift": 0.1272727272727273,
+      "p_value": 0.03869095351428831,
+      "decision": "promising"
+    },
+    {
+      "checkpoint": "2024-01-27",
+      "sample_size": 115,
+      "absolute_lift": 0.11978221415607987,
+      "p_value": 0.042535008454993584,
+      "decision": "promising"
+    },
+    {
+      "checkpoint": "2024-01-28",
+      "sample_size": 120,
+      "absolute_lift": 0.11666666666666665,
+      "p_value": 0.03978160917610096,
+      "decision": "promising"
+    },
+    {
+      "checkpoint": "2024-01-29",
+      "sample_size": 125,
+      "absolute_lift": 0.11034306195596517,
+      "p_value": 0.04331872056177244,
+      "decision": "promising"
+    }
+  ],
+  "segment_breakdown": [
+    {
+      "carrier_code": "AA",
+      "control_rate": 0.08,
+      "treatment_rate": 0.28,
+      "absolute_lift": 0.2,
+      "sample_size": 50
+    },
+    {
+      "carrier_code": "UA",
+      "control_rate": 0.0,
+      "treatment_rate": 0.15384615384615385,
+      "absolute_lift": 0.15384615384615385,
+      "sample_size": 25
+    },
+    {
+      "carrier_code": "SW",
+      "control_rate": 0.0,
+      "treatment_rate": 0.0,
+      "absolute_lift": 0.0,
+      "sample_size": 25
+    },
+    {
+      "carrier_code": "DL",
+      "control_rate": 0.08333333333333333,
+      "treatment_rate": 0.07692307692307693,
+      "absolute_lift": -0.006410256410256401,
+      "sample_size": 25
+    }
+  ],
+  "recommendation": {
+    "decision": "hold_for_guardrail_review",
+    "rationale": "Primary metric improved, but at least one guardrail needs a closer read."
+  }
+}

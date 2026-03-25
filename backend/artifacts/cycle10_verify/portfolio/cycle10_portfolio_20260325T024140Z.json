@@ -1,0 +1,50 @@
+{
+  "ope": {
+    "toggle_name": "adaptive_turnaround_buffers",
+    "reward_metric": "on_time_reward",
+    "logged_rows": 3,
+    "policies": [
+      {
+        "policy_name": "always_control",
+        "description": "Keep the baseline operating mode for every eligible flight.",
+        "match_rate": 0.3333333333333333,
+        "estimated_reward_ips": 0.6666666666666666,
+        "estimated_reward_dm": 1.0,
+        "estimated_reward_dr": 1.0
+      },
+      {
+        "policy_name": "always_treatment",
+        "description": "Apply the recovery toggle uniformly.",
+        "match_rate": 0.6666666666666666,
+        "estimated_reward_ips": 0.6666666666666666,
+        "estimated_reward_dm": 0.5,
+        "estimated_reward_dr": 0.5
+      },
+      {
+        "policy_name": "delay_aware_treatment",
+        "description": "Use treatment for flights with moderate delay burden and fall back otherwise.",
+        "match_rate": 0.3333333333333333,
+        "estimated_reward_ips": 0.6666666666666666,
+        "estimated_reward_dm": 0.8333333333333334,
+        "estimated_reward_dr": 0.8333333333333334
+      }
+    ],
+    "champion_policy": {
+      "policy_name": "always_control",
+      "description": "Keep the baseline operating mode for every eligible flight.",
+      "match_rate": 0.3333333333333333,
+      "estimated_reward_ips": 0.6666666666666666,
+      "estimated_reward_dm": 1.0,
+      "estimated_reward_dr": 1.0
+    },
+    "showcase_notes": [
+      "Offline policy evaluation is layered on top of the experimentation frame.",
+      "DR estimates are preferred for ranking because they combine model-based and IPS correction.",
+      "The current fixture corpus is tiny, so the estimates are portfolio-quality demonstrations rather than production-ready decisions."
+    ]
+  },
+  "demo_assets": {
+    "architecture_doc": "C:\\Users\\bhuwa\\opsgpt-control-tower\\docs\\architecture.md",
+    "demo_script": "C:\\Users\\bhuwa\\opsgpt-control-tower\\docs\\demo-script.md"
+  }
+}

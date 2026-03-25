@@ -1,0 +1,83 @@
+{
+  "toggle_name": "adaptive_turnaround_buffers",
+  "title": "Adaptive Turnaround Buffers",
+  "description": "Local fixture-backed toggle that reduces effective arrival delay for the treated cohort to emulate an operational recovery policy.",
+  "design": {
+    "primary_metric": "on_time_rate",
+    "guardrail_metrics": [
+      "cancellation_rate",
+      "p90_arr_delay_minutes",
+      "severe_delay_rate"
+    ],
+    "alpha": 0.05,
+    "power_target": 0.8,
+    "estimated_mde": 1.4849242404917495
+  },
+  "sample_size": 3,
+  "window": {
+    "start_date": "2024-01-05",
+    "end_date": "2024-01-06"
+  },
+  "variant_counts": {
+    "control": 1,
+    "treatment": 2
+  },
+  "primary_metric_result": {
+    "metric": "on_time_rate",
+    "control_rate": 1.0,
+    "treatment_rate": 0.5,
+    "absolute_lift": -0.5,
+    "relative_lift": -0.5,
+    "z_score": -0.8660254037844385,
+    "p_value": 0.38647623077123283,
+    "ci_95": [
+      -1.1929646455628165,
+      0.19296464556281656
+    ],
+    "significant": false
+  },
+  "guardrails": [
+    {
+      "metric": "cancellation_rate",
+      "control_value": 0.0,
+      "treatment_value": 0.0,
+      "difference": 0.0,
+      "status": "pass"
+    },
+    {
+      "metric": "p90_arr_delay_minutes",
+      "control_value": 4.0,
+      "treatment_value": 62.4,
+      "difference": 58.4,
+      "status": "watch"
+    },
+    {
+      "metric": "severe_delay_rate",
+      "control_value": 0.0,
+      "treatment_value": 0.5,
+      "difference": 0.5,
+      "status": "watch"
+    }
+  ],
+  "sequential_checks": [
+    {
+      "checkpoint": "2024-01-05",
+      "sample_size": 2,
+      "absolute_lift": 0.0,
+      "p_value": 1.0,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-06",
+      "sample_size": 3,
+      "absolute_lift": -0.5,
+      "p_value": 0.38647623077123283,
+      "decision": "keep-running"
+    }
+  ],
+  "segment_breakdown": [],
+  "recommendation": {
+    "decision": "do_not_ship",
+    "rationale": "Treatment did not improve the primary metric on the local experiment frame."
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "command": "full-run",
+  "cycle3": {
+    "command": "full-run",
+    "cycle2": {
+      "command": "full-run",
+      "cycle1_ingest": {
+        "command": "ingest",
+        "mode": "fixture",
+        "sources": [
+          {
+            "source": "bts",
+            "raw_rows": 3,
+            "bronze_rows": 3,
+            "artifact_path": "C:\\Users\\bhuwa\\opsgpt-control-tower\\backend\\artifacts\\runtime_control_tower\\cycle3\\cycle2\\cycle1_raw\\bts_20260325T004428Z.jsonl"
+          },
+          {
+            "source": "weather",
+            "raw_rows": 3,
+            "bronze_rows": 3,
+            "artifact_path": "C:\\Users\\bhuwa\\opsgpt-control-tower\\backend\\artifacts\\runtime_control_tower\\cycle3\\cycle2\\cycle1_raw\\weather_20260325T004428Z.jsonl"
+          },
+          {
+            "source": "comtrade",
+            "raw_rows": 3,
+            "bronze_rows": 3,
+            "artifact_path": "C:\\Users\\bhuwa\\opsgpt-control-tower\\backend\\artifacts\\runtime_control_tower\\cycle3\\cycle2\\cycle1_raw\\comtrade_20260325T004428Z.jsonl"
+          }
+        ]
+      },
+      "build": {
+        "command": "build",
+        "models": [
+          {
+            "model_name": "dim_date",
+            "row_count": 4
+          },
+          {
+            "model_name": "dim_airport",
+            "row_count": 6
+          },
+          {
+            "model_name": "dim_carrier",
+            "row_count": 3
+          },
+          {
+            "model_name": "dim_trade_partner",
+            "row_count": 3
+          },
+          {
+            "model_name": "dim_commodity",
+            "row_count": 3
+          },
+          {
+            "model_name": "fct_flight_operations",
+            "row_count": 3
+          },
+          {
+            "model_name": "fct_weather_observations",
+            "row_count": 3
+          },
+          {
+            "model_name": "fct_trade_monthly",
+            "row_count": 3
+          },
+          {
+            "model_name": "mart_kpi_daily_operations",
+            "row_count": 2
+          },
+          {
+            "model_name": "mart_kpi_carrier_performance",
+            "row_count": 3
+          },
+          {
+            "model_name": "mart_kpi_trade_monthly",
+            "row_count": 3
+          }
+        ]
+      },
+      "validate": {
+        "command": "validate",
+        "json_report": "C:\\Users\\bhuwa\\opsgpt-control-tower\\backend\\artifacts\\runtime_control_tower\\cycle3\\cycle2\\validation\\warehouse_validation_20260325T004428Z.json",
+        "markdown_report": "C:\\Users\\bhuwa\\opsgpt-control-tower\\backend\\artifacts\\runtime_control_tower\\cycle3\\cycle2\\validation\\warehouse_validation_20260325T004428Z.md",
+        "failed_checks": []
+      }
+    },
+    "report": {
+      "command": "report",
+      "json_report": "C:\\Users\\bhuwa\\opsgpt-control-tower\\backend\\artifacts\\runtime_control_tower\\cycle3\\report\\cycle3_stats_20260325T004428Z.json",
+      "markdown_report": "C:\\Users\\bhuwa\\opsgpt-control-tower\\backend\\artifacts\\runtime_control_tower\\cycle3\\report\\cycle3_stats_20260325T004428Z.md",
+      "trend_summary": {
+        "daily_points": [
+          {
+            "flight_date": "2024-01-05",
+            "total_flights": 2,
+            "on_time_rate": 0.5,
+            "severe_delay_rate": 0.0,
+            "cancellation_rate": 0.0,
+            "reliability_score": 50.0,
+            "volatility_index": 9.9
+          },
+          {
+            "flight_date": "2024-01-06",
+            "total_flights": 1,
+            "on_time_rate": 0.0,
+            "severe_delay_rate": 1.0,
+            "cancellation_rate": 0.0,
+            "reliability_score": 0.0,
+            "volatility_index": 0.0
+          }
+        ],
+        "on_time_rate_slope": -0.5,
+        "reliability_score_slope": -50.0,
+        "latest_on_time_rate_zscore": 0.0
+      }
+    }
+  },
+  "training": {
+    "command": "train",
+    "benchmark_row_count": 126,
+    "train_row_count": 95,
+    "test_row_count": 31,
+    "classification": {
+      "target": "severe_delay_label",
+      "baseline_constant": {
+        "model_type": "global_prevalence",
+        "metrics": {
+          "accuracy": 0.6451612903225806,
+          "precision": 0.0,
+          "recall": 0.0,
+          "pr_auc_proxy": 0.0,
+          "brier_score": 0.22974175676883213
+        },
+        "artifact": {
+          "global_prevalence": 0.3263157894736842
+        }
+      },
+      "baseline_segmented": {
+        "model_type": "carrier_origin_rate_plus_delay",
+        "metrics": {
+          "accuracy": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "pr_auc_proxy": 1.0,
+          "brier_score": 0.005207541442652332
+        },
+        "artifact": {
+          "global_prevalence": 0.3263157894736842,
+          "segment_rates": {
+            "AA|JFK": 0.0,
+            "DL|LGA": 0.0,
+            "UA|EWR": 1.0
+          }
+        }
+      }
+    },
+    "regression": {
+      "target": "arr_delay_minutes",
+      "baseline_mean": {
+        "model_type": "global_mean",
+        "metrics": {
+          "mae": 30.769700509337863,
+          "rmse": 37.05589815805805
+        },
+        "artifact": {
+          "global_mean": 32.43667368421053
+        }
+      },
+      "baseline_segmented": {
+        "model_type": "segment_mean_plus_delay_weather",
+        "metrics": {
+          "mae": 9.700277055150888,
+          "rmse": 13.07616863432784
+        },
+        "artifact": {
+          "global_mean": 32.43667368421053,
+          "segment_means": {
+            "AA|JFK": 20.058875000000004,
+            "DL|LGA": -2.5531249999999996,
+            "UA|EWR": 81.33225806451614
+          }
+        }
+      }
+    },
+    "forecasting": {
+      "target": "daily_on_time_rate",
+      "baseline_naive": {
+        "model_type": "last_value",
+        "metrics": {
+          "mae": 0.0303030303030303,
+          "rmse": 0.10050378152592121,
+          "mape": 0.0
+        },
+        "artifact": {
+          "history_points": 32
+        }
+      },
+      "baseline_moving_average": {
+        "model_type": "moving_average",
+        "metrics": {
+          "mae": 0.0303030303030303,
+          "rmse": 0.10050378152592121,
+          "mape": 0.0
+        },
+        "artifact": {
+          "history_points": 32
+        }
+      }
+    },
+    "artifacts": {
+      "evaluation_json": "C:\\Users\\bhuwa\\opsgpt-control-tower\\backend\\artifacts\\runtime_control_tower\\models\\cycle4_evaluation_20260325T004428Z.json",
+      "evaluation_markdown": "C:\\Users\\bhuwa\\opsgpt-control-tower\\backend\\artifacts\\runtime_control_tower\\models\\cycle4_evaluation_20260325T004428Z.md",
+      "model_cards_json": "C:\\Users\\bhuwa\\opsgpt-control-tower\\backend\\artifacts\\runtime_control_tower\\models\\cycle4_model_cards_20260325T004428Z.json",
+      "model_cards_markdown": "C:\\Users\\bhuwa\\opsgpt-control-tower\\backend\\artifacts\\runtime_control_tower\\models\\cycle4_model_cards_20260325T004428Z.md"
+    }
+  }
+}

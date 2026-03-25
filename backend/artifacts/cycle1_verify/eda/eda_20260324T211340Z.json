@@ -1,0 +1,66 @@
+{
+  "generated_at": "20260324T211340Z",
+  "tables": {
+    "bts_flights": {
+      "row_count": 3,
+      "avg_arr_delay_minutes": 32.0,
+      "p50_arr_delay_minutes": 18.0,
+      "cancelled_flights": 0
+    },
+    "weather_observations": {
+      "row_count": 3,
+      "avg_temperature_c": 4.633333333333334,
+      "max_wind_speed_kts": 21.0,
+      "avg_precip_mm": 0.5
+    },
+    "comtrade_monthly": {
+      "row_count": 3,
+      "total_trade_value_usd": 3790000.0,
+      "avg_net_weight_kg": 30100.0
+    }
+  },
+  "top_segments": {
+    "carriers": [
+      {
+        "carrier": "AA",
+        "flight_count": 1
+      },
+      {
+        "carrier": "DL",
+        "flight_count": 1
+      },
+      {
+        "carrier": "UA",
+        "flight_count": 1
+      }
+    ],
+    "weather_conditions": [
+      {
+        "condition": "Clear",
+        "observation_count": 1
+      },
+      {
+        "condition": "Cloudy",
+        "observation_count": 1
+      },
+      {
+        "condition": "Snow",
+        "observation_count": 1
+      }
+    ],
+    "commodity_codes": [
+      {
+        "commodity_code": "2710",
+        "trade_value_usd": 1560000.0
+      },
+      {
+        "commodity_code": "8517",
+        "trade_value_usd": 1250000.0
+      },
+      {
+        "commodity_code": "8703",
+        "trade_value_usd": 980000.0
+      }
+    ]
+  }
+}

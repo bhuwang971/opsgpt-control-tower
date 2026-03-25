@@ -1,0 +1,109 @@
+{
+  "generated_at": "20260325T004427Z",
+  "trend_summary": {
+    "daily_points": [
+      {
+        "flight_date": "2024-01-05",
+        "total_flights": 2,
+        "on_time_rate": 0.5,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.0,
+        "reliability_score": 50.0,
+        "volatility_index": 9.9
+      },
+      {
+        "flight_date": "2024-01-06",
+        "total_flights": 1,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 1.0,
+        "cancellation_rate": 0.0,
+        "reliability_score": 0.0,
+        "volatility_index": 0.0
+      }
+    ],
+    "on_time_rate_slope": -0.5,
+    "reliability_score_slope": -50.0,
+    "latest_on_time_rate_zscore": 0.0
+  },
+  "segment_comparison": {
+    "best_carrier": {
+      "carrier_code": "DL",
+      "total_flights": 1,
+      "on_time_rate": 1.0,
+      "avg_arr_delay_minutes": 4.0
+    },
+    "worst_carrier": {
+      "carrier_code": "UA",
+      "total_flights": 1,
+      "on_time_rate": 0.0,
+      "avg_arr_delay_minutes": 74.0
+    },
+    "on_time_rate_test": {
+      "proportion_a": 1.0,
+      "proportion_b": 0.0,
+      "difference": 1.0,
+      "z_score": 1.414213562373095,
+      "p_value": 0.15729920705028522
+    },
+    "arrival_delay_effect": {
+      "mean_a": 4.0,
+      "mean_b": 74.0,
+      "mean_difference": -70.0,
+      "cohen_d": 0.0
+    }
+  },
+  "probability_models": {
+    "poisson_daily_severe_delay_rate": {
+      "count": 1,
+      "exposure": 3.0,
+      "rate": 0.3333333333333333,
+      "lower_95": 0.0,
+      "upper_95": 0.9866666666666666
+    },
+    "negative_binomial_daily_severe_delay": {
+      "mean_count": 0.5,
+      "variance_count": 0.5,
+      "dispersion": null,
+      "overdispersed": false
+    }
+  },
+  "selected_kpi_segments": {
+    "daily_operations": [
+      {
+        "flight_date": "2024-01-05",
+        "total_flights": 2,
+        "on_time_rate": 0.5,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-06",
+        "total_flights": 1,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 1.0
+      }
+    ],
+    "carrier_performance": [
+      {
+        "carrier_code": "DL",
+        "total_flights": 1,
+        "on_time_rate": 1.0,
+        "avg_arr_delay_minutes": 4.0,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "carrier_code": "AA",
+        "total_flights": 1,
+        "on_time_rate": 0.0,
+        "avg_arr_delay_minutes": 18.0,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "carrier_code": "UA",
+        "total_flights": 1,
+        "on_time_rate": 0.0,
+        "avg_arr_delay_minutes": 74.0,
+        "severe_delay_rate": 1.0
+      }
+    ]
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "dataset": {
+    "benchmark_row_count": 756,
+    "train_row_count": 585,
+    "test_row_count": 171,
+    "split_strategy": "time-based holdout",
+    "data_origin": "deterministic benchmark expansion from warehouse fixture facts"
+  },
+  "models": {
+    "classification_constant": {
+      "model_type": "global_prevalence",
+      "metrics": {
+        "accuracy": 0.4093567251461988,
+        "precision": 0.0,
+        "recall": 0.0,
+        "pr_auc_proxy": 0.0,
+        "brier_score": 0.2673435066957329
+      },
+      "artifact": {
+        "global_prevalence": 0.4307692307692308
+      }
+    },
+    "classification_segmented": {
+      "model_type": "carrier_origin_rate_plus_delay",
+      "metrics": {
+        "accuracy": 0.672514619883041,
+        "precision": 0.6890756302521008,
+        "recall": 0.8118811881188119,
+        "pr_auc_proxy": 0.5594475413927947,
+        "brier_score": 0.1611187645291347
+      },
+      "artifact": {
+        "global_prevalence": 0.4307692307692308,
+        "segment_rates": {
+          "AA|JFK": 0.147239263803681,
+          "DL|LGA": 0.5061728395061729,
+          "UA|EWR": 0.7012195121951219,
+          "SW|BWI": 0.3229166666666667
+        }
+      }
+    },
+    "regression_mean": {
+      "model_type": "global_mean",
+      "metrics": {
+        "mae": 27.491817543859618,
+        "rmse": 36.32952173760013
+      },
+      "artifact": {
+        "global_mean": 56.52977435897446
+      }
+    },
+    "regression_segmented": {
+      "model_type": "segment_mean_plus_delay_weather",
+      "metrics": {
+        "mae": 20.68239362160819,
+        "rmse": 24.955477625924253
+      },
+      "artifact": {
+        "global_mean": 56.52977435897446,
+        "segment_means": {
+          "AA|JFK": 33.97865030674847,
+          "DL|LGA": 56.66675925925922,
+          "UA|EWR": 69.26027439024385,
+          "SW|BWI": 72.84060416666667
+        }
+      }
+    },
+    "forecast_naive": {
+      "model_type": "last_value",
+      "metrics": {
+        "mae": 0.02314814814814815,
+        "rmse": 0.03586095690932793,
+        "mape": 0.0
+      },
+      "artifact": {
+        "history_points": 35
+      }
+    },
+    "forecast_moving_average": {
+      "model_type": "moving_average",
+      "metrics": {
+        "mae": 0.03902116402116403,
+        "rmse": 0.04767413039931244,
+        "mape": 0.16666666666666682
+      },
+      "artifact": {
+        "history_points": 35
+      }
+    }
+  },
+  "limitations": [
+    "Current training corpus is a deterministic local benchmark derived from fixture warehouse data.",
+    "Metrics validate pipeline behavior and leakage controls more than real-world predictive quality.",
+    "Next cycle should replace benchmark expansion with real historical datasets and richer features."
+  ]
+}

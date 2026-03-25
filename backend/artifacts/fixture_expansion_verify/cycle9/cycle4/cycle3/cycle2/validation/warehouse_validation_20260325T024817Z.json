@@ -1,0 +1,60 @@
+{
+  "generated_at": "20260325T024817Z",
+  "results": [
+    {
+      "name": "analytics.dim_airport row_count",
+      "status": "pass",
+      "detail": "row_count=18"
+    },
+    {
+      "name": "analytics.dim_carrier row_count",
+      "status": "pass",
+      "detail": "row_count=4"
+    },
+    {
+      "name": "analytics.fct_flight_operations row_count",
+      "status": "pass",
+      "detail": "row_count=18"
+    },
+    {
+      "name": "analytics.mart_kpi_daily_operations row_count",
+      "status": "pass",
+      "detail": "row_count=6"
+    },
+    {
+      "name": "analytics.dim_airport.airport_code unique_not_null",
+      "status": "pass",
+      "detail": "null_count=0 duplicate_count=0"
+    },
+    {
+      "name": "analytics.dim_carrier.carrier_code unique_not_null",
+      "status": "pass",
+      "detail": "null_count=0 duplicate_count=0"
+    },
+    {
+      "name": "daily mart total flights reconcile to fact table",
+      "status": "pass",
+      "detail": "left=18 right=18"
+    },
+    {
+      "name": "carrier mart row count matches carrier grain",
+      "status": "pass",
+      "detail": "left=4 right=4"
+    },
+    {
+      "name": "fixture daily KPI 2024-01-05",
+      "status": "pass",
+      "detail": "actual=(3, 0.3333, 0.0)"
+    },
+    {
+      "name": "fixture daily KPI 2024-01-06",
+      "status": "pass",
+      "detail": "actual=(3, 0.3333, 0.3333)"
+    },
+    {
+      "name": "fixture carrier KPI DL",
+      "status": "fail",
+      "detail": "actual=(5, 0.2)"
+    }
+  ]
+}

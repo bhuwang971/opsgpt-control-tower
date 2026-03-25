@@ -1,0 +1,140 @@
+{
+  "toggle_name": "adaptive_turnaround_buffers",
+  "title": "Adaptive Turnaround Buffers",
+  "description": "Local fixture-backed toggle that reduces effective arrival delay for the treated cohort to emulate an operational recovery policy.",
+  "design": {
+    "primary_metric": "on_time_rate",
+    "guardrail_metrics": [
+      "cancellation_rate",
+      "p90_arr_delay_minutes",
+      "severe_delay_rate"
+    ],
+    "alpha": 0.05,
+    "power_target": 0.8,
+    "estimated_mde": 0.655879810997886
+  },
+  "sample_size": 18,
+  "window": {
+    "start_date": "2024-01-05",
+    "end_date": "2024-01-10"
+  },
+  "variant_counts": {
+    "control": 9,
+    "treatment": 9
+  },
+  "primary_metric_result": {
+    "metric": "on_time_rate",
+    "control_rate": 0.4444444444444444,
+    "treatment_rate": 0.4444444444444444,
+    "absolute_lift": 0.0,
+    "relative_lift": 0.0,
+    "z_score": 0.0,
+    "p_value": 1.0,
+    "ci_95": [
+      -0.4591158676985202,
+      0.4591158676985202
+    ],
+    "significant": false
+  },
+  "guardrails": [
+    {
+      "metric": "cancellation_rate",
+      "control_value": 0.0,
+      "treatment_value": 0.1111111111111111,
+      "difference": 0.1111111111111111,
+      "status": "watch"
+    },
+    {
+      "metric": "p90_arr_delay_minutes",
+      "control_value": 75.8,
+      "treatment_value": 60.80000000000001,
+      "difference": -14.999999999999986,
+      "status": "pass"
+    },
+    {
+      "metric": "severe_delay_rate",
+      "control_value": 0.2222222222222222,
+      "treatment_value": 0.1111111111111111,
+      "difference": -0.1111111111111111,
+      "status": "pass"
+    }
+  ],
+  "sequential_checks": [
+    {
+      "checkpoint": "2024-01-05",
+      "sample_size": 3,
+      "absolute_lift": -0.5,
+      "p_value": 0.38647623077123283,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-06",
+      "sample_size": 6,
+      "absolute_lift": -0.3333333333333333,
+      "p_value": 0.4142161782425251,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-07",
+      "sample_size": 9,
+      "absolute_lift": -0.35,
+      "p_value": 0.29371811275179205,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-08",
+      "sample_size": 12,
+      "absolute_lift": 0.0,
+      "p_value": 1.0,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-09",
+      "sample_size": 15,
+      "absolute_lift": 0.07142857142857145,
+      "p_value": 0.782055266721573,
+      "decision": "keep-running"
+    },
+    {
+      "checkpoint": "2024-01-10",
+      "sample_size": 18,
+      "absolute_lift": 0.0,
+      "p_value": 1.0,
+      "decision": "keep-running"
+    }
+  ],
+  "segment_breakdown": [
+    {
+      "carrier_code": "AA",
+      "control_rate": 1.0,
+      "treatment_rate": 1.0,
+      "absolute_lift": 0.0,
+      "sample_size": 5
+    },
+    {
+      "carrier_code": "UA",
+      "control_rate": 0.0,
+      "treatment_rate": 0.0,
+      "absolute_lift": 0.0,
+      "sample_size": 5
+    },
+    {
+      "carrier_code": "DL",
+      "control_rate": 0.3333333333333333,
+      "treatment_rate": 0.0,
+      "absolute_lift": -0.3333333333333333,
+      "sample_size": 5
+    },
+    {
+      "carrier_code": "SW",
+      "control_rate": 1.0,
+      "treatment_rate": 0.5,
+      "absolute_lift": -0.5,
+      "sample_size": 3
+    }
+  ],
+  "recommendation": {
+    "decision": "do_not_ship",
+    "rationale": "Treatment did not improve the primary metric on the local experiment frame."
+  }
+}

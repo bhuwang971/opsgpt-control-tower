@@ -1,0 +1,127 @@
+{
+  "generated_at": "2026-03-25T03:28:16.271801+00:00",
+  "corpus_paths": [
+    "README.md",
+    "docs/architecture.md",
+    "docs/implementation-cadence-plan.md",
+    "docs/runbook.md",
+    "warehouse/glossary.md"
+  ],
+  "summary": {
+    "total_cases": 5,
+    "mode_accuracy": 1.0,
+    "retrieval_source_hit_rate": 0.6666666666666666,
+    "citation_coverage": 1.0,
+    "refusal_precision": 0.0,
+    "hallucination_rate_proxy": 0.6666666666666666,
+    "sql_success_rate": 1.0
+  },
+  "cases": [
+    {
+      "case_id": "retrieval_cycle6",
+      "question": "What does the implementation cadence plan say about Cycle 6?",
+      "expected_mode": "retrieval",
+      "expected_source": "docs/implementation-cadence-plan.md",
+      "expected_refusal": false,
+      "observed_mode": "retrieval",
+      "mode_match": true,
+      "citation_sources": [
+        "docs/implementation-cadence-plan.md",
+        "docs/implementation-cadence-plan.md",
+        "docs/implementation-cadence-plan.md"
+      ],
+      "citation_count": 3,
+      "source_match": true,
+      "answer_preview": "# OpsGPT Control Tower Implementation Cadence Plan Supporting context: ## Cadence (Cycle 0 -> Cycle 10)",
+      "answer_is_refusal": false,
+      "refusal_match": true,
+      "hallucination_flag": false,
+      "sql_rows_returned": false,
+      "passed": true
+    },
+    {
+      "case_id": "retrieval_architecture",
+      "question": "What does the architecture doc say about Prometheus and Grafana?",
+      "expected_mode": "retrieval",
+      "expected_source": "docs/architecture.md",
+      "expected_refusal": false,
+      "observed_mode": "retrieval",
+      "mode_match": true,
+      "citation_sources": [
+        "docs/implementation-cadence-plan.md",
+        "README.md",
+        "README.md"
+      ],
+      "citation_count": 3,
+      "source_match": false,
+      "answer_preview": "## Architecture and end-to-end data flow 1. Ingest BTS + Weather.gov + Comtrade + docs corpus. 2. Persist raw partitions and run metadata. 3. Transform to curated marts in DuckDB. 4. Train/evaluate mo",
+      "answer_is_refusal": false,
+      "refusal_match": true,
+      "hallucination_flag": true,
+      "sql_rows_returned": false,
+      "passed": false
+    },
+    {
+      "case_id": "sql_daily_latest",
+      "question": "Show the latest daily reliability and on-time trend",
+      "expected_mode": "sql",
+      "expected_source": null,
+      "expected_refusal": false,
+      "observed_mode": "sql",
+      "mode_match": true,
+      "citation_sources": [
+        "analytics allowlist"
+      ],
+      "citation_count": 1,
+      "source_match": true,
+      "answer_preview": "Returned 1 rows. First row: flight_date=2024-01-06, total_flights=1, on_time_rate=0.0, p90_arr_delay_minutes=74.0, severe_delay_rate=1.0, reliability_score=0.0",
+      "answer_is_refusal": false,
+      "refusal_match": true,
+      "hallucination_flag": false,
+      "sql_rows_returned": true,
+      "passed": true
+    },
+    {
+      "case_id": "sql_carrier_delay",
+      "question": "Show the worst carrier delay",
+      "expected_mode": "sql",
+      "expected_source": null,
+      "expected_refusal": false,
+      "observed_mode": "sql",
+      "mode_match": true,
+      "citation_sources": [
+        "analytics allowlist"
+      ],
+      "citation_count": 1,
+      "source_match": true,
+      "answer_preview": "Returned 3 rows. First row: carrier_code=UA, total_flights=1, on_time_rate=0.0, avg_arr_delay_minutes=74.0, severe_delay_rate=1.0",
+      "answer_is_refusal": false,
+      "refusal_match": true,
+      "hallucination_flag": false,
+      "sql_rows_returned": true,
+      "passed": true
+    },
+    {
+      "case_id": "retrieval_unknown",
+      "question": "What is the exact FAA policy bulletin number mentioned in the local docs?",
+      "expected_mode": "retrieval",
+      "expected_source": null,
+      "expected_refusal": true,
+      "observed_mode": "retrieval",
+      "mode_match": true,
+      "citation_sources": [
+        "docs/implementation-cadence-plan.md",
+        "docs/runbook.md",
+        "README.md"
+      ],
+      "citation_count": 3,
+      "source_match": true,
+      "answer_preview": "### Cycle 10: Advanced differentiators and portfolio polish - Goals: standout optional components and interview packaging. - Deliverables: offline bandit/OPE, optional KG or MCP integration, final dem",
+      "answer_is_refusal": false,
+      "refusal_match": false,
+      "hallucination_flag": true,
+      "sql_rows_returned": false,
+      "passed": false
+    }
+  ]
+}

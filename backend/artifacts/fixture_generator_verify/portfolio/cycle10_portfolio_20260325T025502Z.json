@@ -1,0 +1,50 @@
+{
+  "ope": {
+    "toggle_name": "adaptive_turnaround_buffers",
+    "reward_metric": "on_time_reward",
+    "logged_rows": 125,
+    "policies": [
+      {
+        "policy_name": "always_control",
+        "description": "Keep the baseline operating mode for every eligible flight.",
+        "match_rate": 0.496,
+        "estimated_reward_ips": 0.048,
+        "estimated_reward_dm": 0.04866666666666667,
+        "estimated_reward_dr": 0.048666666666666664
+      },
+      {
+        "policy_name": "always_treatment",
+        "description": "Apply the recovery toggle uniformly.",
+        "match_rate": 0.504,
+        "estimated_reward_ips": 0.16,
+        "estimated_reward_dm": 0.15815384615384606,
+        "estimated_reward_dr": 0.15815384615384623
+      },
+      {
+        "policy_name": "delay_aware_treatment",
+        "description": "Use treatment for flights with moderate delay burden and fall back otherwise.",
+        "match_rate": 0.52,
+        "estimated_reward_ips": 0.16,
+        "estimated_reward_dm": 0.13051282051282037,
+        "estimated_reward_dr": 0.1668451282051282
+      }
+    ],
+    "champion_policy": {
+      "policy_name": "delay_aware_treatment",
+      "description": "Use treatment for flights with moderate delay burden and fall back otherwise.",
+      "match_rate": 0.52,
+      "estimated_reward_ips": 0.16,
+      "estimated_reward_dm": 0.13051282051282037,
+      "estimated_reward_dr": 0.1668451282051282
+    },
+    "showcase_notes": [
+      "Offline policy evaluation is layered on top of the experimentation frame.",
+      "DR estimates are preferred for ranking because they combine model-based and IPS correction.",
+      "The current fixture corpus is tiny, so the estimates are portfolio-quality demonstrations rather than production-ready decisions."
+    ]
+  },
+  "demo_assets": {
+    "architecture_doc": "C:\\Users\\bhuwa\\opsgpt-control-tower\\docs\\architecture.md",
+    "demo_script": "C:\\Users\\bhuwa\\opsgpt-control-tower\\docs\\demo-script.md"
+  }
+}

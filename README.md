@@ -379,7 +379,9 @@ Current generated sizes:
 - `125` weather rows
 - `24` Comtrade rows
 
-This is intentionally large enough to make later-cycle metrics more meaningful without forcing the repository to store huge generated assets in Git.
+This is intentionally large enough to make later-cycle metrics more meaningful while still keeping the checked-in showcase assets under GitHub-friendly size limits.
+
+Curated verification outputs now live in `backend/data/warehouse` and `backend/artifacts/` so the interviewer dashboard has reproducible local evidence to point at.
 
 ## Current Benchmark Metrics
 

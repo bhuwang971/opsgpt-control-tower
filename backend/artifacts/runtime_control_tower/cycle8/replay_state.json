@@ -1,0 +1,56 @@
+{
+  "generated_at": "2026-03-25T00:25:33.796479+00:00",
+  "source": "local_replay",
+  "live_kpis": {
+    "on_time_rate": 0.0,
+    "reliability_score": 0.0,
+    "p90_arr_delay_minutes": 95.0,
+    "volatility_index": 4.5
+  },
+  "active_alerts": [
+    {
+      "severity": "high",
+      "title": "Live On-Time Breach Risk",
+      "detail": "Replay state pushed live on-time rate below the watch threshold."
+    },
+    {
+      "severity": "medium",
+      "title": "Tail Delay Pressure",
+      "detail": "Replay state indicates the delay tail has moved into elevated territory."
+    },
+    {
+      "severity": "info",
+      "title": "Weather-Driven Variability",
+      "detail": "A weather shift event is active in the replay log and may explain volatility changes."
+    }
+  ],
+  "event_log": [
+    {
+      "event_id": "evt-delay-spike",
+      "event_type": "delay_spike",
+      "delta_on_time_rate": -0.08,
+      "delta_reliability_score": -12.0,
+      "delta_p90_arr_delay_minutes": 18.0,
+      "delta_volatility_index": 3.5,
+      "severity": "high"
+    },
+    {
+      "event_id": "evt-carrier-recovery",
+      "event_type": "carrier_recovery",
+      "delta_on_time_rate": 0.03,
+      "delta_reliability_score": 4.0,
+      "delta_p90_arr_delay_minutes": -6.0,
+      "delta_volatility_index": -1.0,
+      "severity": "info"
+    },
+    {
+      "event_id": "evt-weather-shift",
+      "event_type": "weather_shift",
+      "delta_on_time_rate": -0.04,
+      "delta_reliability_score": -6.0,
+      "delta_p90_arr_delay_minutes": 9.0,
+      "delta_volatility_index": 2.0,
+      "severity": "medium"
+    }
+  ]
+}

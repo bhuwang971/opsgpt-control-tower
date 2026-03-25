@@ -1,0 +1,461 @@
+{
+  "generated_at": "20260325T025502Z",
+  "trend_summary": {
+    "daily_points": [
+      {
+        "flight_date": "2024-01-05",
+        "total_flights": 5,
+        "on_time_rate": 0.2,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.2,
+        "reliability_score": 20.0,
+        "volatility_index": 13.61
+      },
+      {
+        "flight_date": "2024-01-06",
+        "total_flights": 5,
+        "on_time_rate": 0.2,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.0,
+        "reliability_score": 20.0,
+        "volatility_index": 9.56
+      },
+      {
+        "flight_date": "2024-01-07",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.0,
+        "reliability_score": 0.0,
+        "volatility_index": 12.35
+      },
+      {
+        "flight_date": "2024-01-08",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.2,
+        "reliability_score": 0.0,
+        "volatility_index": 20.48
+      },
+      {
+        "flight_date": "2024-01-09",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.0,
+        "reliability_score": 0.0,
+        "volatility_index": 13.33
+      },
+      {
+        "flight_date": "2024-01-10",
+        "total_flights": 5,
+        "on_time_rate": 0.2,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.0,
+        "reliability_score": 20.0,
+        "volatility_index": 11.12
+      },
+      {
+        "flight_date": "2024-01-11",
+        "total_flights": 5,
+        "on_time_rate": 0.2,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.2,
+        "reliability_score": 20.0,
+        "volatility_index": 12.43
+      },
+      {
+        "flight_date": "2024-01-12",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.0,
+        "reliability_score": 0.0,
+        "volatility_index": 13.33
+      },
+      {
+        "flight_date": "2024-01-13",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.0,
+        "reliability_score": 0.0,
+        "volatility_index": 13.46
+      },
+      {
+        "flight_date": "2024-01-14",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.0,
+        "reliability_score": 0.0,
+        "volatility_index": 12.35
+      },
+      {
+        "flight_date": "2024-01-15",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.2,
+        "reliability_score": 0.0,
+        "volatility_index": 15.38
+      },
+      {
+        "flight_date": "2024-01-16",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.0,
+        "reliability_score": 0.0,
+        "volatility_index": 13.99
+      },
+      {
+        "flight_date": "2024-01-17",
+        "total_flights": 5,
+        "on_time_rate": 0.2,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.0,
+        "reliability_score": 20.0,
+        "volatility_index": 13.99
+      },
+      {
+        "flight_date": "2024-01-18",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.2,
+        "reliability_score": 0.0,
+        "volatility_index": 19.54
+      },
+      {
+        "flight_date": "2024-01-19",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.2,
+        "cancellation_rate": 0.0,
+        "reliability_score": 0.0,
+        "volatility_index": 12.35
+      },
+      {
+        "flight_date": "2024-01-20",
+        "total_flights": 5,
+        "on_time_rate": 0.2,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.0,
+        "reliability_score": 20.0,
+        "volatility_index": 13.46
+      },
+      {
+        "flight_date": "2024-01-21",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.0,
+        "reliability_score": 0.0,
+        "volatility_index": 13.33
+      },
+      {
+        "flight_date": "2024-01-22",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.2,
+        "reliability_score": 0.0,
+        "volatility_index": 19.97
+      },
+      {
+        "flight_date": "2024-01-23",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.0,
+        "reliability_score": 0.0,
+        "volatility_index": 11.12
+      },
+      {
+        "flight_date": "2024-01-24",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.2,
+        "cancellation_rate": 0.0,
+        "reliability_score": 0.0,
+        "volatility_index": 13.33
+      },
+      {
+        "flight_date": "2024-01-25",
+        "total_flights": 5,
+        "on_time_rate": 0.2,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.2,
+        "reliability_score": 20.0,
+        "volatility_index": 19.49
+      },
+      {
+        "flight_date": "2024-01-26",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.0,
+        "reliability_score": 0.0,
+        "volatility_index": 12.35
+      },
+      {
+        "flight_date": "2024-01-27",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.0,
+        "reliability_score": 0.0,
+        "volatility_index": 9.56
+      },
+      {
+        "flight_date": "2024-01-28",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0,
+        "cancellation_rate": 0.2,
+        "reliability_score": 0.0,
+        "volatility_index": 19.58
+      },
+      {
+        "flight_date": "2024-01-29",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.2,
+        "cancellation_rate": 0.0,
+        "reliability_score": 0.0,
+        "volatility_index": 13.99
+      }
+    ],
+    "on_time_rate_slope": -0.0038461538461538464,
+    "reliability_score_slope": -0.38461538461538464,
+    "latest_on_time_rate_zscore": 0.0
+  },
+  "segment_comparison": {
+    "best_carrier": {
+      "carrier_code": "AA",
+      "total_flights": 50,
+      "on_time_rate": 0.1,
+      "avg_arr_delay_minutes": 32.34
+    },
+    "worst_carrier": {
+      "carrier_code": "SW",
+      "total_flights": 25,
+      "on_time_rate": 0.0,
+      "avg_arr_delay_minutes": 40.64
+    },
+    "on_time_rate_test": {
+      "proportion_a": 0.1,
+      "proportion_b": 0.0,
+      "difference": 0.1,
+      "z_score": 1.636634176769943,
+      "p_value": 0.10170693003109332
+    },
+    "arrival_delay_effect": {
+      "mean_a": 32.34,
+      "mean_b": 40.64,
+      "mean_difference": -8.299999999999997,
+      "cohen_d": -0.5061375192585412
+    }
+  },
+  "probability_models": {
+    "poisson_daily_severe_delay_rate": {
+      "count": 3,
+      "exposure": 125.0,
+      "rate": 0.024,
+      "lower_95": 0.0,
+      "upper_95": 0.051158556662679995
+    },
+    "negative_binomial_daily_severe_delay": {
+      "mean_count": 0.12,
+      "variance_count": 0.10999999999999999,
+      "dispersion": null,
+      "overdispersed": false
+    }
+  },
+  "selected_kpi_segments": {
+    "daily_operations": [
+      {
+        "flight_date": "2024-01-05",
+        "total_flights": 5,
+        "on_time_rate": 0.2,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-06",
+        "total_flights": 5,
+        "on_time_rate": 0.2,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-07",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-08",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-09",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-10",
+        "total_flights": 5,
+        "on_time_rate": 0.2,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-11",
+        "total_flights": 5,
+        "on_time_rate": 0.2,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-12",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-13",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-14",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-15",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-16",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-17",
+        "total_flights": 5,
+        "on_time_rate": 0.2,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-18",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-19",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.2
+      },
+      {
+        "flight_date": "2024-01-20",
+        "total_flights": 5,
+        "on_time_rate": 0.2,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-21",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-22",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-23",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-24",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.2
+      },
+      {
+        "flight_date": "2024-01-25",
+        "total_flights": 5,
+        "on_time_rate": 0.2,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-26",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-27",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-28",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "flight_date": "2024-01-29",
+        "total_flights": 5,
+        "on_time_rate": 0.0,
+        "severe_delay_rate": 0.2
+      }
+    ],
+    "carrier_performance": [
+      {
+        "carrier_code": "AA",
+        "total_flights": 50,
+        "on_time_rate": 0.1,
+        "avg_arr_delay_minutes": 32.34,
+        "severe_delay_rate": 0.04
+      },
+      {
+        "carrier_code": "DL",
+        "total_flights": 25,
+        "on_time_rate": 0.08,
+        "avg_arr_delay_minutes": 27.32,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "carrier_code": "UA",
+        "total_flights": 25,
+        "on_time_rate": 0.0,
+        "avg_arr_delay_minutes": 32.84,
+        "severe_delay_rate": 0.0
+      },
+      {
+        "carrier_code": "SW",
+        "total_flights": 25,
+        "on_time_rate": 0.0,
+        "avg_arr_delay_minutes": 40.64,
+        "severe_delay_rate": 0.04
+      }
+    ]
+  }
+}
