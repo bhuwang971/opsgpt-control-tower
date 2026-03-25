@@ -1,0 +1,53 @@
+{
+  "title": "OpsGPT Live Ops",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "10s",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "Replay Events Processed",
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 0,
+        "y": 0
+      },
+      "targets": [
+        {
+          "expr": "opsgpt_replay_events_total"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Active Alerts",
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 8,
+        "y": 0
+      },
+      "targets": [
+        {
+          "expr": "opsgpt_active_alerts"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Live On-Time Rate",
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 16,
+        "y": 0
+      },
+      "targets": [
+        {
+          "expr": "opsgpt_live_on_time_rate"
+        }
+      ]
+    }
+  ]
+}

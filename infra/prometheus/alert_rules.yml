@@ -1,0 +1,18 @@
+groups:
+  - name: opsgpt_control_tower
+    rules:
+      - alert: OpsGPTLiveOnTimeRateLow
+        expr: opsgpt_live_on_time_rate < 0.45
+        for: 1m
+        labels:
+          severity: high
+        annotations:
+          summary: Live on-time rate is below the watch threshold.
+
+      - alert: OpsGPTActiveAlertsPresent
+        expr: opsgpt_active_alerts > 0
+        for: 1m
+        labels:
+          severity: medium
+        annotations:
+          summary: One or more replay-driven control tower alerts are active.

@@ -18,8 +18,10 @@ jobs:
           pip install -e ./backend[dev]
       - name: Ruff
         run: cd backend && ruff check .
-      - name: Pytest
+      - name: Pytest Fast
         run: cd backend && pytest
+      - name: Pytest Pipeline
+        run: cd backend && pytest -m pipeline
 
   frontend:
     runs-on: ubuntu-latest

@@ -85,41 +85,72 @@ Ops teams with SLA targets need one system to monitor reliability KPIs, explain 
 - Goals: trend comparisons and uncertainty-aware KPI interpretation.
 - Deliverables: hypothesis/effect-size utilities, Poisson/NegBin notebooks.
 - Exit checks: reproducible statistical report for selected KPI segments.
+  Current implementation path:
+  - `backend/app/cycle3` contains the reusable stats utilities and report runner
+  - `python -m app.cycle3.cli full-run` produces the reproducible report artifact
 
 ### Cycle 4: ML baselines and out-of-sample evaluation
 - Goals: classification + regression + forecasting baselines.
 - Deliverables: training pipeline, model artifacts, evaluation dashboards.
 - Exit checks: time-based split metrics + baseline comparisons + model cards.
+  Current implementation path:
+  - `backend/app/cycle4` contains the benchmark dataset builder, baselines, and evaluation runner
+  - `python -m app.cycle4.cli full-run` generates the evaluation dashboard and model card artifacts
 
 ### Cycle 5: Control Tower UI expansion
 - Goals: production-style analytics experience.
 - Deliverables: KPI cards, trends, drilldowns, saved filters/exports.
 - Exit checks: UI/API integration validated with sample scenarios.
+  Current implementation path:
+  - `backend/app/control_tower.py` serves the control-tower overview and CSV export payloads
+  - `frontend/src/App.tsx` renders the dashboard, carrier drilldowns, alerts, and forecast panels
 
 ### Cycle 6: RAG and safe NL-to-SQL
 - Goals: grounded answers and auditable query generation.
 - Deliverables: chunk/embed/index pipeline, citation UI, SQL guardrails.
 - Exit checks: prompt regression pack, citation coverage, SQL safety tests.
+  Current implementation path:
+  - `backend/app/cycle6` contains retrieval, SQL guardrails, and assistant orchestration
+  - `backend/app/cycle6/eval.py` contains the local RAG benchmark and hallucination/citation eval pack
+  - `POST /api/assistant/query` serves the grounded response surface
+  - `frontend/src/App.tsx` exposes the citation and SQL preview UI on `/assistant`
 
 ### Cycle 7: Agent workflows and eval harness
 - Goals: evidence-backed decision automation.
 - Deliverables: LangGraph flow (diagnose -> evidence -> recommend -> memo).
 - Exit checks: stable agent traces, fallback behavior, memo quality rubric.
+  Current implementation path:
+  - `backend/app/cycle7` contains the deterministic workflow, trace model, and rubric harness
+  - `POST /api/agent/decision-memo` serves the memo output
+  - `frontend/src/App.tsx` exposes the memo workflow UI on `/memo`
 
 ### Cycle 8: Streaming and observability hardening
 - Goals: near-real-time updates and robust ops visibility.
 - Deliverables: Redpanda consumers, alert rules, Grafana dashboards, runbook.
 - Exit checks: replayed events update KPIs; alerts and dashboards trigger as expected.
+  Current implementation path:
+  - `backend/app/cycle8` contains the local replay engine, metrics, and observability provisioning
+  - `GET /api/stream/status` and `POST /api/stream/replay` expose the replay loop
+  - `frontend/src/App.tsx` exposes the live replay view on `/live`
 
 ### Cycle 9: Experimentation module
 - Goals: product and model experimentation support.
 - Deliverables: A/B analysis templates, reporting views, guardrail metrics.
 - Exit checks: end-to-end experiment analysis on a real config toggle.
+  Current implementation path:
+  - `backend/app/cycle9` contains the experiment frame builder, analysis runner, and report writer
+  - `POST /api/experiments/analyze` serves the experiment summary payload
+  - `frontend/src/App.tsx` exposes the experimentation UI on `/experiments`
 
 ### Cycle 10: Advanced differentiators and portfolio polish
 - Goals: standout optional components and interview packaging.
 - Deliverables: offline bandit/OPE, optional KG or MCP integration, final demo assets.
 - Exit checks: complete demo script, architecture narrative, risk/tradeoff notes.
+  Current implementation path:
+  - `backend/app/cycle10` contains the offline policy evaluation runner and portfolio report writer
+  - `POST /api/portfolio/ope` serves the OPE summary payload
+  - `frontend/src/App.tsx` exposes the showcase UI on `/showcase`
+  - `docs/architecture.md` and `docs/demo-script.md` hold the interview-facing narrative assets
 
 ## Implementation command contract for every cycle
 When you ask for cycle execution, I will execute:

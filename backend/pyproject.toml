@@ -1,3 +1,7 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "opsgpt-backend"
 version = "0.1.0"
@@ -9,7 +13,8 @@ dependencies = [
   "uvicorn[standard]>=0.35.0",
   "httpx>=0.28.0",
   "psycopg[binary]>=3.2.0",
-  "prometheus-client>=0.22.0"
+  "prometheus-client>=0.22.0",
+  "duckdb>=1.3.0"
 ]
 
 [project.optional-dependencies]
@@ -26,5 +31,19 @@ target-version = "py311"
 select = ["E", "F", "I", "UP"]
 
 [tool.pytest.ini_options]
-addopts = "-q"
+addopts = "-q -m \"not pipeline\""
 testpaths = ["tests"]
+markers = [
+  "pipeline: end-to-end tests that build fixture-backed runtime assets",
+]
+
+[project.scripts]
+opsgpt-cycle1 = "app.cycle1.cli:main"
+opsgpt-cycle2 = "app.cycle2.cli:main"
+opsgpt-cycle3 = "app.cycle3.cli:main"
+opsgpt-cycle4 = "app.cycle4.cli:main"
+opsgpt-cycle6 = "app.cycle6.cli:main"
+opsgpt-cycle7 = "app.cycle7.cli:main"
+opsgpt-cycle8 = "app.cycle8.cli:main"
+opsgpt-cycle9 = "app.cycle9.cli:main"
+opsgpt-cycle10 = "app.cycle10.cli:main"
