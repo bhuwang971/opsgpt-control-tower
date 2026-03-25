@@ -6,6 +6,36 @@ from dataclasses import dataclass
 from math import log
 from pathlib import Path
 
+STOPWORDS = {
+    "a",
+    "about",
+    "all",
+    "an",
+    "and",
+    "are",
+    "do",
+    "does",
+    "exact",
+    "for",
+    "how",
+    "in",
+    "is",
+    "it",
+    "local",
+    "of",
+    "on",
+    "say",
+    "show",
+    "the",
+    "their",
+    "there",
+    "these",
+    "this",
+    "to",
+    "what",
+    "with",
+}
+
 
 @dataclass(frozen=True)
 class RetrievalChunk:
@@ -82,7 +112,11 @@ def grounded_answer(question: str, hits: list[RetrievalHit]) -> str:
 
 
 def _tokenize(text: str) -> list[str]:
-    return re.findall(r"[a-z0-9_]+", text.lower())
+    return [
+        token
+        for token in re.findall(r"[a-z0-9_]+", text.lower())
+        if token not in STOPWORDS and len(token) > 1
+    ]
 
 
 def _excerpt(text: str, limit: int = 220) -> str:

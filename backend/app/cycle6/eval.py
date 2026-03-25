@@ -162,7 +162,10 @@ def _markdown_report(result: dict[str, Any]) -> str:
             "",
             "## Notes",
             "- This eval pack is deterministic and local-corpus-backed.",
-            "- Hallucination is approximated through refusal failures and missing expected sources.",
+            (
+                "- Hallucination is approximated through refusal failures and"
+                " missing expected sources."
+            ),
             "- Next step would be adding prompt-injection and adversarial red-team sets.",
         ]
     ) + "\n"
