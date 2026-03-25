@@ -63,3 +63,4 @@ def test_cycle6_eval_pack_writes_reports(tmp_path: Path, monkeypatch) -> None:
     assert Path(result["artifacts"]["json_report"]).exists()
     assert Path(result["artifacts"]["markdown_report"]).exists()
     assert result["evaluation"]["summary"]["mode_accuracy"] >= 0.8
+    assert result["evaluation"]["summary"]["red_team_pass_rate"] >= 0.75

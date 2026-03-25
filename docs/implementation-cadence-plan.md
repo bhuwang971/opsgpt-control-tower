@@ -112,6 +112,7 @@ Ops teams with SLA targets need one system to monitor reliability KPIs, explain 
   Current implementation path:
   - `backend/app/cycle6` contains retrieval, SQL guardrails, and assistant orchestration
   - `backend/app/cycle6/eval.py` contains the local RAG benchmark and hallucination/citation eval pack
+  - retrieval now supports an optional cross-encoder reranker path with before/after eval tracking
   - `POST /api/assistant/query` serves the grounded response surface
   - `frontend/src/App.tsx` exposes the citation and SQL preview UI on `/assistant`
 
@@ -151,6 +152,7 @@ Ops teams with SLA targets need one system to monitor reliability KPIs, explain 
   - `POST /api/portfolio/ope` serves the OPE summary payload
   - `frontend/src/App.tsx` exposes the showcase UI on `/showcase`
   - `docs/architecture.md` and `docs/demo-script.md` hold the interview-facing narrative assets
+  - `GET /api/interview/dashboard` and `/interview` expose an interviewer-facing evidence dashboard
 
 ## Implementation command contract for every cycle
 When you ask for cycle execution, I will execute:

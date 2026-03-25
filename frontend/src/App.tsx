@@ -194,6 +194,80 @@ type PortfolioPayload = {
   showcase_notes: string[];
 };
 
+type InterviewDashboardPayload = {
+  generated_at: string;
+  ml: {
+    classification: Record<string, number>;
+    regression: Record<string, number>;
+    forecasting: Record<string, number>;
+    model_cards: string;
+  };
+  rag: {
+    summary: Record<string, number>;
+    benchmark_cases: Array<{
+      case_id: string;
+      category: string;
+      passed: boolean;
+      hallucination_flag: boolean;
+      citation_count: number;
+    }>;
+  };
+  experimentation: {
+    primary_metric: {
+      absolute_lift: number;
+      p_value: number;
+      significant: boolean;
+    };
+    recommendation: {
+      decision: string;
+      rationale: string;
+    };
+    ope_champion: {
+      policy_name: string;
+      estimated_reward_dr: number;
+    };
+  };
+  responsible_ai: {
+    dataset_datasheet: {
+      record_count: number;
+      train_count: number;
+      test_count: number;
+      time_split: string;
+      intended_use: string;
+      limitations: string[];
+    };
+    fairness_slices: Array<{
+      carrier_code: string;
+      count: number;
+      actual_positive_rate: number;
+      predicted_positive_rate: number;
+      mae: number;
+      baseline_mae: number;
+      mae_delta_vs_baseline: number;
+    }>;
+    privacy_governance_checklist: Array<{ control: string; status: string }>;
+  };
+  testing: {
+    fast_backend_suite: { command: string; test_count: number };
+    pipeline_backend_suite: { command: string; test_count: number };
+    frontend_suite: { commands: string[] };
+  };
+  platform: {
+    observability: string[];
+    workflow_runtime: string;
+    peft_sandbox: {
+      recommended_for: string;
+      status: string;
+      experiments: Array<{
+        name: string;
+        method: string;
+        rank: number;
+        alpha: number;
+      }>;
+    };
+  };
+};
+
 type ControlTowerPayload = {
   generated_at: string;
   kpis: KpiCard[];
@@ -1428,6 +1502,275 @@ function ShowcasePage() {
   );
 }
 
+function InterviewDashboardPage() {
+  const [data, setData] = useState<InterviewDashboardPayload | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  function loadDashboard(showLoading: boolean) {
+    if (showLoading) {
+      setLoading(true);
+      setError(null);
+    }
+    fetch(`${apiBaseUrl()}/api/interview/dashboard`)
+      .then(async (response) => {
+        if (!response.ok) {
+          throw new Error(`interview dashboard request failed (${response.status})`);
+        }
+        return (await response.json()) as InterviewDashboardPayload;
+      })
+      .then((payload) => setData(payload))
+      .catch((err: unknown) => {
+        setError(err instanceof Error ? err.message : "unknown error");
+      })
+      .finally(() => setLoading(false));
+  }
+
+  useEffect(() => {
+    fetch(`${apiBaseUrl()}/api/interview/dashboard`)
+      .then(async (response) => {
+        if (!response.ok) {
+          throw new Error(`interview dashboard request failed (${response.status})`);
+        }
+        return (await response.json()) as InterviewDashboardPayload;
+      })
+      .then((payload) => setData(payload))
+      .catch((err: unknown) => {
+        setError(err instanceof Error ? err.message : "unknown error");
+      });
+  }, []);
+
+  return (
+    <div className="dashboard-shell">
+      <section className="hero-band">
+        <div>
+          <p className="eyebrow">Interview Dashboard</p>
+          <h1 className="hero-title">One place to show model quality, RAG safety, testing posture, and governance.</h1>
+          <p className="hero-copy">
+            This view aggregates the main interview-facing evidence: ML metrics, RAG evals, experiment/OPE outcomes,
+            responsible-AI checks, and verification commands.
+          </p>
+        </div>
+        <div className="hero-meta">
+          <div className="meta-chip">
+            <span className="meta-label">Workflow Runtime</span>
+            <strong>{data?.platform.workflow_runtime ?? "loading"}</strong>
+          </div>
+          <div className="meta-chip">
+            <span className="meta-label">Generated</span>
+            <strong>{data ? new Date(data.generated_at).toLocaleString() : "loading"}</strong>
+          </div>
+        </div>
+      </section>
+
+      <section className="panel-grid">
+        <article className="panel">
+          <div className="panel-header">
+            <div>
+              <p className="eyebrow">Controls</p>
+              <h2 className="panel-title">Refresh evidence</h2>
+            </div>
+          </div>
+          <div className="assistant-actions">
+            <button type="button" className="action-button" onClick={() => loadDashboard(true)} disabled={loading}>
+              {loading ? "Refreshing..." : "Refresh dashboard"}
+            </button>
+          </div>
+          {error && <p className="panel-copy">{error}</p>}
+        </article>
+
+        <article className="panel">
+          <div className="panel-header">
+            <div>
+              <p className="eyebrow">Verification</p>
+              <h2 className="panel-title">Test surfaces</h2>
+            </div>
+          </div>
+          {!data && <p className="panel-copy">Loading interview dashboard...</p>}
+          {data && (
+            <div className="metric-mini-grid">
+              <div className="metric-mini">
+                <span>Fast Backend</span>
+                <strong>{data.testing.fast_backend_suite.test_count} tests</strong>
+              </div>
+              <div className="metric-mini">
+                <span>Pipeline Backend</span>
+                <strong>{data.testing.pipeline_backend_suite.test_count} tests</strong>
+              </div>
+              <div className="metric-mini">
+                <span>Frontend</span>
+                <strong>{data.testing.frontend_suite.commands.length} commands</strong>
+              </div>
+            </div>
+          )}
+        </article>
+      </section>
+
+      {data && (
+        <>
+          <section className="panel-grid">
+            <article className="panel">
+              <div className="panel-header">
+                <div>
+                  <p className="eyebrow">ML Metrics</p>
+                  <h2 className="panel-title">Accuracy and error baselines</h2>
+                </div>
+              </div>
+              <div className="metric-mini-grid">
+                <div className="metric-mini">
+                  <span>Classification PR-AUC</span>
+                  <strong>{data.ml.classification.pr_auc_proxy?.toFixed(3) ?? "n/a"}</strong>
+                </div>
+                <div className="metric-mini">
+                  <span>Regression MAE</span>
+                  <strong>{data.ml.regression.mae?.toFixed(3) ?? "n/a"}</strong>
+                </div>
+                <div className="metric-mini">
+                  <span>Forecast RMSE</span>
+                  <strong>{data.ml.forecasting.rmse?.toFixed(3) ?? "n/a"}</strong>
+                </div>
+              </div>
+            </article>
+
+            <article className="panel">
+              <div className="panel-header">
+                <div>
+                  <p className="eyebrow">RAG Eval</p>
+                  <h2 className="panel-title">Grounding and hallucination controls</h2>
+                </div>
+              </div>
+              <div className="metric-mini-grid">
+                <div className="metric-mini">
+                  <span>Mode Accuracy</span>
+                  <strong>{formatPercent(data.rag.summary.mode_accuracy ?? 0)}</strong>
+                </div>
+                <div className="metric-mini">
+                  <span>Citation Coverage</span>
+                  <strong>{formatPercent(data.rag.summary.citation_coverage ?? 0)}</strong>
+                </div>
+                <div className="metric-mini">
+                  <span>Red-Team Pass</span>
+                  <strong>{formatPercent(data.rag.summary.red_team_pass_rate ?? 0)}</strong>
+                </div>
+                <div className="metric-mini">
+                  <span>Hallucination Proxy</span>
+                  <strong>{formatPercent(data.rag.summary.hallucination_rate_proxy ?? 0)}</strong>
+                </div>
+              </div>
+            </article>
+          </section>
+
+          <section className="panel-grid">
+            <article className="panel">
+              <div className="panel-header">
+                <div>
+                  <p className="eyebrow">RAG Cases</p>
+                  <h2 className="panel-title">Benchmark and red-team cases</h2>
+                </div>
+              </div>
+              <div className="alert-stack">
+                {data.rag.benchmark_cases.map((item) => (
+                  <div key={item.case_id} className={`alert-card ${item.passed ? "alert-info" : "alert-medium"}`}>
+                    <strong>{item.case_id}</strong>
+                    <p>
+                      {item.category} - citations {item.citation_count} - hallucination flag{" "}
+                      {item.hallucination_flag ? "on" : "off"}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </article>
+
+            <article className="panel">
+              <div className="panel-header">
+                <div>
+                  <p className="eyebrow">Responsible AI</p>
+                  <h2 className="panel-title">Datasheet, slices, governance</h2>
+                </div>
+              </div>
+              <div className="metric-mini-grid">
+                <div className="metric-mini">
+                  <span>Dataset Rows</span>
+                  <strong>{data.responsible_ai.dataset_datasheet.record_count}</strong>
+                </div>
+                <div className="metric-mini">
+                  <span>Train/Test</span>
+                  <strong>
+                    {data.responsible_ai.dataset_datasheet.train_count}/{data.responsible_ai.dataset_datasheet.test_count}
+                  </strong>
+                </div>
+                <div className="metric-mini">
+                  <span>Time Split</span>
+                  <strong>{data.responsible_ai.dataset_datasheet.time_split}</strong>
+                </div>
+              </div>
+              <div className="alert-stack">
+                {data.responsible_ai.privacy_governance_checklist.slice(0, 5).map((item) => (
+                  <div key={item.control} className={`alert-card ${item.status === "implemented" ? "alert-info" : "alert-medium"}`}>
+                    <strong>{item.control}</strong>
+                    <p>{item.status}</p>
+                  </div>
+                ))}
+              </div>
+            </article>
+          </section>
+
+          <section className="panel-grid">
+            <article className="panel">
+              <div className="panel-header">
+                <div>
+                  <p className="eyebrow">Experimentation</p>
+                  <h2 className="panel-title">Rollout evidence</h2>
+                </div>
+              </div>
+              <div className="metric-mini-grid">
+                <div className="metric-mini">
+                  <span>Absolute Lift</span>
+                  <strong>{formatPercent(data.experimentation.primary_metric.absolute_lift)}</strong>
+                </div>
+                <div className="metric-mini">
+                  <span>p-value</span>
+                  <strong>{data.experimentation.primary_metric.p_value.toFixed(4)}</strong>
+                </div>
+                <div className="metric-mini">
+                  <span>OPE Champion</span>
+                  <strong>{data.experimentation.ope_champion.policy_name}</strong>
+                </div>
+              </div>
+              <p className="panel-copy">{data.experimentation.recommendation.rationale}</p>
+            </article>
+
+            <article className="panel">
+              <div className="panel-header">
+                <div>
+                  <p className="eyebrow">Platform Depth</p>
+                  <h2 className="panel-title">Monitoring and PEFT sandbox</h2>
+                </div>
+              </div>
+              <div className="alert-stack">
+                {data.platform.observability.map((item) => (
+                  <div key={item} className="alert-card alert-info">
+                    <strong>Observability</strong>
+                    <p>{item}</p>
+                  </div>
+                ))}
+                {data.platform.peft_sandbox.experiments.map((item) => (
+                  <div key={item.name} className="alert-card alert-info">
+                    <strong>{item.name}</strong>
+                    <p>
+                      {item.method} - rank {item.rank} - alpha {item.alpha}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </article>
+          </section>
+        </>
+      )}
+    </div>
+  );
+}
+
 function App() {
   return (
     <div className="app-frame">
@@ -1444,6 +1787,7 @@ function App() {
             <Link to="/live">Live Ops</Link>
             <Link to="/experiments">Experiments</Link>
             <Link to="/showcase">Showcase</Link>
+            <Link to="/interview">Interview</Link>
             <Link to="/health">Health</Link>
           </div>
         </nav>
@@ -1454,6 +1798,7 @@ function App() {
           <Route path="/live" element={<LiveOpsPage />} />
           <Route path="/experiments" element={<ExperimentsPage />} />
           <Route path="/showcase" element={<ShowcasePage />} />
+          <Route path="/interview" element={<InterviewDashboardPage />} />
           <Route path="/health" element={<HealthPage />} />
         </Routes>
       </div>

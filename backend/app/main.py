@@ -15,6 +15,7 @@ from app.cycle7.workflow import run_decision_workflow
 from app.cycle8.replay import get_live_status, replay_events
 from app.cycle9.analysis import analyze_experiment, available_toggles
 from app.cycle10.ope import analyze_policies
+from app.interview_dashboard import interview_dashboard
 
 app = FastAPI(title="OpsGPT Control Tower API", version="0.1.0")
 
@@ -161,3 +162,8 @@ def portfolio_ope(payload: PortfolioRequest) -> dict[str, object]:
     if payload.toggle_name not in available_toggles():
         raise HTTPException(status_code=404, detail=f"Unknown toggle: {payload.toggle_name}")
     return analyze_policies(control_tower.default_duckdb_path(), payload.toggle_name)
+
+
+@app.get("/api/interview/dashboard")
+def interview_dashboard_api() -> dict[str, object]:
+    return interview_dashboard(control_tower.default_duckdb_path())

@@ -4,7 +4,9 @@ import json
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, TypedDict
+
+from langgraph.graph import END, START, StateGraph
 
 from app.control_tower import control_tower_overview
 from app.cycle6.assistant import answer_question
@@ -20,21 +22,77 @@ class TraceStep:
     detail: str
 
 
+class WorkflowState(TypedDict, total=False):
+    objective: str
+    overview: dict[str, Any]
+    diagnosis: dict[str, Any]
+    evidence: list[dict[str, Any]]
+    recommendations: list[dict[str, str]]
+    memo_markdown: str
+    fallback_used: bool
+    trace: list[dict[str, str]]
+
+
 def run_decision_workflow(objective: str | None = None) -> dict[str, Any]:
-    trace: list[TraceStep] = []
-    fallback_used = False
-
-    overview = control_tower_overview()
-    diagnosis = _diagnose(overview, objective)
-    trace.append(
-        TraceStep(
-            step="diagnose",
-            status="completed",
-            detail=diagnosis["headline"],
-        )
+    graph = _build_graph().compile()
+    final_state = graph.invoke(
+        {"objective": objective or DEFAULT_OBJECTIVE, "trace": [], "fallback_used": False}
     )
+    result = {
+        "generated_at": datetime.now(UTC).isoformat(),
+        "objective": final_state["objective"],
+        "diagnosis": final_state["diagnosis"],
+        "evidence": final_state["evidence"],
+        "recommendations": final_state["recommendations"],
+        "memo_markdown": final_state["memo_markdown"],
+        "fallback_used": final_state["fallback_used"],
+        "trace": final_state["trace"],
+        "runtime": "langgraph",
+    }
+    evaluation = evaluate_memo(result)
+    result["evaluation"] = {
+        "score": evaluation.score,
+        "max_score": evaluation.max_score,
+        "rubric": evaluation.rubric,
+    }
+    return result
 
+
+def write_workflow_artifacts(result: dict[str, Any], artifact_dir: Path) -> dict[str, str]:
+    artifact_dir.mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
+    json_path = artifact_dir / f"cycle7_decision_memo_{timestamp}.json"
+    md_path = artifact_dir / f"cycle7_decision_memo_{timestamp}.md"
+    json_path.write_text(json.dumps(result, indent=2, default=str), encoding="utf-8")
+    md_path.write_text(result["memo_markdown"], encoding="utf-8")
+    return {"json_report": str(json_path), "markdown_report": str(md_path)}
+
+
+def _build_graph() -> StateGraph:
+    graph = StateGraph(WorkflowState)
+    graph.add_node("diagnose", _diagnose_node)
+    graph.add_node("gather_evidence", _evidence_node)
+    graph.add_node("recommend", _recommend_node)
+    graph.add_node("memo", _memo_node)
+    graph.add_edge(START, "diagnose")
+    graph.add_edge("diagnose", "gather_evidence")
+    graph.add_edge("gather_evidence", "recommend")
+    graph.add_edge("recommend", "memo")
+    graph.add_edge("memo", END)
+    return graph
+
+
+def _diagnose_node(state: WorkflowState) -> WorkflowState:
+    overview = control_tower_overview()
+    diagnosis = _diagnose(overview, state["objective"])
+    trace = list(state.get("trace", []))
+    trace.append(asdict(TraceStep("diagnose", "completed", diagnosis["headline"])))
+    return {"overview": overview, "diagnosis": diagnosis, "trace": trace}
+
+
+def _evidence_node(state: WorkflowState) -> WorkflowState:
     evidence: list[dict[str, Any]] = []
+    fallback_used = bool(state.get("fallback_used", False))
     prompts = [
         "Show the latest daily reliability and on-time trend",
         "Show the worst carrier delay",
@@ -63,65 +121,45 @@ def run_decision_workflow(objective: str | None = None) -> dict[str, Any]:
                     "sql": None,
                 }
             )
+    trace = list(state.get("trace", []))
     trace.append(
-        TraceStep(
-            step="gather_evidence",
-            status="completed",
-            detail=f"Collected {len(evidence)} evidence packets",
+        asdict(
+            TraceStep(
+                "gather_evidence",
+                "completed",
+                f"Collected {len(evidence)} evidence packets",
+            )
         )
     )
+    return {"evidence": evidence, "fallback_used": fallback_used, "trace": trace}
 
-    recommendations = _recommend(overview, diagnosis)
+
+def _recommend_node(state: WorkflowState) -> WorkflowState:
+    recommendations = _recommend(state["overview"], state["diagnosis"])
+    trace = list(state.get("trace", []))
     trace.append(
-        TraceStep(
-            step="recommend",
-            status="completed",
-            detail=f"Produced {len(recommendations)} recommendations",
+        asdict(
+            TraceStep(
+                "recommend",
+                "completed",
+                f"Produced {len(recommendations)} recommendations",
+            )
         )
     )
+    return {"recommendations": recommendations, "trace": trace}
 
+
+def _memo_node(state: WorkflowState) -> WorkflowState:
     memo_markdown = _memo_markdown(
-        objective=objective or DEFAULT_OBJECTIVE,
-        diagnosis=diagnosis,
-        evidence=evidence,
-        recommendations=recommendations,
-        fallback_used=fallback_used,
+        objective=state["objective"],
+        diagnosis=state["diagnosis"],
+        evidence=state["evidence"],
+        recommendations=state["recommendations"],
+        fallback_used=state["fallback_used"],
     )
-    trace.append(
-        TraceStep(
-            step="memo",
-            status="completed",
-            detail="Generated markdown decision memo",
-        )
-    )
-
-    result = {
-        "generated_at": datetime.now(UTC).isoformat(),
-        "objective": objective or DEFAULT_OBJECTIVE,
-        "diagnosis": diagnosis,
-        "evidence": evidence,
-        "recommendations": recommendations,
-        "memo_markdown": memo_markdown,
-        "fallback_used": fallback_used,
-        "trace": [asdict(step) for step in trace],
-    }
-    evaluation = evaluate_memo(result)
-    result["evaluation"] = {
-        "score": evaluation.score,
-        "max_score": evaluation.max_score,
-        "rubric": evaluation.rubric,
-    }
-    return result
-
-
-def write_workflow_artifacts(result: dict[str, Any], artifact_dir: Path) -> dict[str, str]:
-    artifact_dir.mkdir(parents=True, exist_ok=True)
-    timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
-    json_path = artifact_dir / f"cycle7_decision_memo_{timestamp}.json"
-    md_path = artifact_dir / f"cycle7_decision_memo_{timestamp}.md"
-    json_path.write_text(json.dumps(result, indent=2, default=str), encoding="utf-8")
-    md_path.write_text(result["memo_markdown"], encoding="utf-8")
-    return {"json_report": str(json_path), "markdown_report": str(md_path)}
+    trace = list(state.get("trace", []))
+    trace.append(asdict(TraceStep("memo", "completed", "Generated markdown decision memo")))
+    return {"memo_markdown": memo_markdown, "trace": trace}
 
 
 def _diagnose(overview: dict[str, Any], objective: str | None) -> dict[str, Any]:
@@ -221,4 +259,5 @@ def _memo_markdown(
     lines.extend(["", "## Trace", ""])
     lines.append(f"- Fallback used: {'yes' if fallback_used else 'no'}")
     lines.append("- Workflow path: diagnose -> gather_evidence -> recommend -> memo")
+    lines.append("- Runtime: LangGraph StateGraph")
     return "\n".join(lines) + "\n"

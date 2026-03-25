@@ -31,6 +31,7 @@ def test_cycle7_api_returns_trace_and_rubric(tmp_path: Path, monkeypatch) -> Non
     assert payload["trace"]
     assert payload["evaluation"]["score"] >= 4
     assert "## Recommendations" in payload["memo_markdown"]
+    assert payload["runtime"] == "langgraph"
 
 
 def test_cycle7_cli_writes_artifacts(tmp_path: Path, monkeypatch) -> None:
@@ -59,3 +60,4 @@ def test_cycle7_trace_is_stable(tmp_path: Path, monkeypatch) -> None:
         "memo",
     ]
     assert all(step["status"] == "completed" for step in payload["trace"])
+    assert payload["runtime"] == "langgraph"

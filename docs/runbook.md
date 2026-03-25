@@ -102,7 +102,8 @@
    - `python -m app.cycle6.cli`
 6. Eval outputs:
    - markdown and JSON benchmark reports under `backend/artifacts/cycle6`
-   - citation coverage, refusal precision, and hallucination-rate proxy metrics
+   - citation coverage, refusal precision, hallucination-rate proxy, red-team pass rate
+   - reranker before/after retrieval hit rate comparison
 
 ## Cycle 7 decision workflow
 
@@ -161,6 +162,16 @@
    - champion policy summary
    - portfolio report artifacts under `backend/artifacts/cycle10`
    - docs updates in `docs/architecture.md` and `docs/demo-script.md`
+
+## Interview dashboard
+
+1. Open the dashboard:
+   - `http://localhost:5173/interview`
+2. Backend endpoint:
+   - `GET http://localhost:8000/api/interview/dashboard`
+3. Supporting docs:
+   - `docs/responsible-ai.md`
+   - `docs/peft-sandbox.md`
 
 ## Local stop
 
